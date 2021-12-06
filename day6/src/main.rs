@@ -14,7 +14,7 @@ fn star11() -> u64 {
         let idx: usize = f.try_into().unwrap();
         counts[idx] += 1;
     }
-    for _i in 0..80 {
+    for _i in 0..256 {
         let mut alt_counts = vec![0; 80];
         for j in (1..9).rev() {
             alt_counts[j - 1] = counts[j];
@@ -22,6 +22,7 @@ fn star11() -> u64 {
         alt_counts[6] += counts[0];
         alt_counts[8] += counts[0];
         counts = alt_counts;
+        println!("{}: {}", _i, counts.iter().sum::<u64>());
     }
     counts.iter().sum()
 }
