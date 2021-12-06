@@ -15,7 +15,7 @@ fn star11() -> u64 {
         counts[idx] += 1;
     }
     for _i in 0..256 {
-        let mut alt_counts = vec![0; 80];
+        let mut alt_counts = vec![0; 9];
         for j in (1..9).rev() {
             alt_counts[j - 1] = counts[j];
         }
@@ -41,3 +41,17 @@ fn get_input(path: &str) -> Result<Vec<u64>, io::Error> {
         .collect();
     Ok(fish)
 }
+
+// very inefficient recursive method. dynamic programming would help
+// fn star11() -> u64 {
+//     let fish = get_input("./input").unwrap();
+//     fish.into_iter().map(|f| generates(256, f)).sum()
+// }
+
+// fn generates(n: u64, timer: u64) -> u64 {
+//     if n > timer {
+//         generates(n - timer - 1, 6) + generates(n - timer - 1, 8)
+//     } else {
+//         1
+//     }
+// }
