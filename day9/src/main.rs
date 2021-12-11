@@ -1,8 +1,10 @@
 use array2d::Array2D;
+use std::collections::HashMap;
 use std::fs::File;
 use std::io;
 use std::io::BufRead;
 use std::io::BufReader;
+use std::io::Write;
 
 fn main() {
     println!("Hello, world!");
@@ -35,8 +37,26 @@ fn star18() -> u32 {
             }
         }
     }
-    for (row, col) in mins {
-        basins.push(traverse_basin(row, col, &heights, &mut visited));
+    let mut basin_vals = HashMap::new();
+    for (row, col) in &mins {
+        let basin = traverse_basin(*row, *col, &heights, &mut visited);
+        basins.push(basin);
+        basin_vals.insert((row, col), basin);
+    }
+
+    for i in 0..heights.row_len() {
+        for j in 0..heights.column_len() {
+            if mins.contains(&(i,j)) {
+                print!("M", );
+            }
+            if *heights.get(i, j).unwrap() == 9 {
+                print!("*");
+            } else {
+                print!(" ");
+            }
+            io::stdout().flush();
+        }
+        println!("");
     }
     basins.sort();
     basins.reverse();

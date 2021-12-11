@@ -11,6 +11,22 @@ fn main() {
     println!("{}", star15());
     println!("{}", star16());
 }
+
+// acedgfb  -> 8
+// cdfbe    -> 2,5
+// gcdfa    -> 2,5
+// fbcad    -> 3
+// dab      -> 7
+// cefabd   -> 6,9
+// cdfgeb   -> 6,9
+// eafb     -> 4
+// cagedb   -> 0
+// ab       -> 1
+
+// sides = 8 - cdf = abeg
+// cagedb -> 0 since it contains all sides
+//
+//
 fn star15() -> u32 {
     let outputs = get_input("./input").unwrap();
     outputs
@@ -59,8 +75,7 @@ impl CharSet {
     }
 
     fn is_subset(&self, b: &CharSet) -> bool {
-        let r = self.set.is_subset(&b.set);
-        r
+        self.set.is_subset(&b.set)
     }
 
     fn invert(&self) -> CharSet {
@@ -147,7 +162,7 @@ fn star16() -> i32 {
         let four_set = CharSet::new(four);
         let nine = input
             .iter()
-            .find(|s| s.len() == 6 && four_set.is_subset(&CharSet::new(s)))
+            .find(|s| s.len() == 6 && !(four_set.is_subset(&CharSet::new(s).invert())))
             .unwrap();
         sln.insert(nine.chars().sorted().collect(), 9);
 
@@ -217,3 +232,17 @@ fn get_input(path: &str) -> Result<Vec<(Vec<String>, Vec<String>)>, io::Error> {
         .collect();
     Ok(positions)
 }
+
+
+// ceb bgfdea febgc ec eadcgfb eagbcd fcdebg dcef gafbc egdbf | fdbgec fedbg gdabefc gefbd
+// ec = 1
+// dcef = 4
+// ceb = 7
+// eadcgfb = 8
+// febgc = 3
+// eagbcd = 0
+//
+//
+// horizontals = fgb
+// sides = acde
+
