@@ -1,3 +1,4 @@
+
 use core::panic;
 use std::fs::File;
 use std::io;
@@ -21,6 +22,22 @@ fn star19() -> u32 {
         acc
     });
     res
+}
+
+fn star19_o() -> u32 {
+    let lines = get_input("./input").unwrap();
+    lines.iter().fold(0, |mut acc, line| {
+        acc += star19_top(line);
+        acc
+    })
+}
+
+fn star19_top(line: &String) -> u32 {
+    let first = &line[0..1];
+    let rest = &line[1..];
+
+}
+fn star19_i(line: &String) -> u32 {
 }
 
 fn star20() -> u64 {
