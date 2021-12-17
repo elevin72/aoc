@@ -31,12 +31,10 @@ fn reaches_target((mut x_vel, mut y_vel): (i32, i32)) -> bool {
         x_pos += x_vel;
         y_pos += y_vel;
 
-        x_vel += if x_vel > 0 {
-            -1
-        } else if x_vel < 0 {
-            1
-        } else {
-            0
+        x_vel += match x_vel.cmp(&0) {
+            std::cmp::Ordering::Less => 1,
+            std::cmp::Ordering::Greater => -1,
+            std::cmp::Ordering::Equal => 0,
         };
 
         y_vel -= 1;
